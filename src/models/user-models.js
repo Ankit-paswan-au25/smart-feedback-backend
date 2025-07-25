@@ -22,6 +22,17 @@ const UserSchema = mongoose.Schema(
         },
         image: {
             type: String
+        },
+        isUpdatedBy: {
+            type: Number,
+        },
+        isLocked: {
+            type: Boolean,
+            default: false
+        },
+        isDeleted: {
+            type: Boolean,
+            dafault: false
         }
     },
     {

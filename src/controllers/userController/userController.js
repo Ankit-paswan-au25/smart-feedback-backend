@@ -2,7 +2,7 @@ const User = require('../../models/user-models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
     try {
 
         const newUser = {
@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         }
         newUser.password = hasedPassword
         newUser.Salt = salt
-        console.log(newUser, "newUser")
+
         const createdUser = await User.create(newUser)
         res.status(200).send({ newUser: createdUser })
     } catch (error) {
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        console.log("hello logged in successfully")
+
         res.status(200).send({
             msg: "Login successful",
             token,
@@ -69,6 +69,6 @@ const loginUser = async (req, res) => {
 };
 
 module.exports = {
-    createUser,
+    registerUser,
     loginUser
 }
