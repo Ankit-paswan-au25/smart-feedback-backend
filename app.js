@@ -20,7 +20,7 @@ app.use('/api/request', requestRoute)
 //
 
 
-// 404 Handler
+// over here if route doesn't meet it requirements
 app.all('/{*splat}', (req, res, next) => {
     next(new AppError(`${req.originalUrl} not found on this server`, 404))
 });
