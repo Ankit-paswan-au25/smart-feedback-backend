@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors')
 const UserRoute = require('./src/routes/userRoutes/index.js')
 const requestRoute = require('./src/routes/requestRoutes/requestIndex.js')
+const AppError = require('./src/utils/appError.js')
+const globalErrorHandler = require('./src/controllers/errorController/errorController.js')
 
 // Middlewares
 app.use(cors());
@@ -19,16 +21,13 @@ app.use('/api/request', requestRoute)
 
 
 // 404 Handler
-app.use((req, res) => {
-    res.status(404).json({ message: 'Route not found' });
+app.all('/{*splat}', (req, res, next) => {
+    next(new AppError(`${req.originalUrl} not found on this server`, 404))
 });
 
 
 // Error Handler (optional)
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Something broke!' });
-});
+app.use(globalErrorHandler);
 
 
 module.exports = app;

@@ -4,8 +4,7 @@
   "description": "Backend API for the Smart Feedback & Issue Tracker built with Node.js and Express. Handles user authentication, issue management, and feedback operations with MongoDB integration.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node server.js",
+    "prod": "cross-env NODE_ENV=production nodemon server.js",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -23,5 +22,8 @@
     "mongodb": "^6.17.0",
     "mongoose": "^8.16.2",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
