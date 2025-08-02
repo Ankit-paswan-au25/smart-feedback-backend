@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
+
 
 const UserSchema = mongoose.Schema(
     {
@@ -8,12 +10,20 @@ const UserSchema = mongoose.Schema(
         },
         email: {
             type: String,
-            required: true
+            required: [true, 'Please Provide email'],
+            unique: true,
+            lowerCase: true,
+            validate: [validator.isEmail, 'Please provide valid email']
         },
         password: {
             type: String,
-            required: true
+            required: [true, 'Please Provide password'],
+            minlength: 8,
+            select: false
         },
+        passwordChangeAt: Date,
+        passwordResetToken: String,
+        passwordResetTokeExpiresIn: Date,
         department: {
             type: String,
         },
